@@ -21,7 +21,7 @@ RUN php artisan migrate --force
 
 RUN chown -R nginx:nginx /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database
 
-# ★ここ修正
+RUN mkdir -p /etc/nginx/sites-enabled
 COPY config/nginx/nginx-site.conf /etc/nginx/sites-enabled/default.conf
 
 ENV WEBROOT=/var/www/html/public
