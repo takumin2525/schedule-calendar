@@ -5,8 +5,12 @@ use App\Http\Controllers\GroupController;
 use App\Http\Controllers\EventController;
 use Illuminate\Support\Facades\Route;
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
 });
 
 // ログイン済みユーザーをグループ一覧へリダイレクト
@@ -33,9 +37,9 @@ Route::middleware('auth')->group(function () {
 
     // Events
     Route::get('/groups/{group}/events', [EventController::class, 'index'])->name('events.index');
-    Route::get('/groups/{group}/events/date/{eventDate}', [EventController::class,'getByDate'])->name('events.byDate');
-    Route::post('/groups/{group}/events', [EventController::class,'store'])->name('events.store');
-    Route::put('/groups/{group}/events/{event}', [EventController::class,'update'])->name('events.update');
+    Route::get('/groups/{group}/events/date/{eventDate}', [EventController::class, 'getByDate'])->name('events.byDate');
+    Route::post('/groups/{group}/events', [EventController::class, 'store'])->name('events.store');
+    Route::put('/groups/{group}/events/{event}', [EventController::class, 'update'])->name('events.update');
     Route::delete('/groups/{group}/events/{event}', [EventController::class, 'destroy'])->name('events.destroy');
 });
 
