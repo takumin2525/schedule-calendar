@@ -4,6 +4,8 @@ WORKDIR /var/www/html
 
 COPY . .
 
+RUN rm -f public/hot
+
 RUN composer install --no-dev --optimize-autoloader
 RUN apk add --no-cache nodejs npm
 RUN npm install && npm run build
