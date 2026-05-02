@@ -20,4 +20,5 @@ RUN php artisan migrate --force
 
 RUN chown -R nginx:nginx /var/www/html/storage /var/www/html/bootstrap/cache
 
+ENV RUN_SCRIPTS=1
 ENV WEBROOT=/var/www/html/public
