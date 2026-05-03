@@ -699,14 +699,45 @@
     .toast.error {
       background: #dc2626;
     }
+
+    /* グループ一覧へ戻るボタン */
+    .back-button {
+      display: inline-block;
+      margin-bottom: 16px;
+      color: #374151;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .back-button:hover {
+      text-decoration: underline;
+    }
+
+    /* 説明 */
+    .group-description {
+      margin: 8px 0 12px;
+      color: #555;
+      font-size: 14px;
+    }
   </style>
 </head>
 
 <body>
   <div class="page-wrap">
+    <a href="{{ route('groups.index') }}" class="back-button">
+      ← グループ一覧に戻る
+    </a>
+
     <h1 class="page-title">{{ $group->name }} のカレンダー</h1>
 
+    @if ($group->description)
+      <p class="group-description">
+        {{ $group->description }}
+      </p>
+    @endif
+
     <p class="page-subtitle">日付を押すと、その日の予定一覧を右から確認できます。</p>
+
     <div id="calendar"></div>
   </div>
 
