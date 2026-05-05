@@ -11,6 +11,7 @@
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
 
   <style>
+    /* ページ全体 */
     body {
       font-family: sans-serif;
       margin: 0;
@@ -19,81 +20,154 @@
       color: #222;
     }
 
-    /* ページ上部 */
     .page-wrap {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 24px 16px 40px;
+      padding: 28px 20px 48px;
     }
 
-    .page-header {
-      position: relative;
-      margin-bottom: 24px;
-      min-height: 72px;
+    /* カレンダー上部ヘッダー */
+    .calendar-header {
+      display: grid;
+      grid-template-columns: 220px 1fr 220px;
+      align-items: start;
+      gap: 24px;
+      margin-bottom: 28px;
     }
 
+    .calendar-header-left {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      padding-top: 6px;
+    }
+
+    .calendar-header-center {
+      text-align: center;
+      min-width: 0;
+    }
+
+    .calendar-header-right {
+      min-height: 1px;
+    }
+
+    /* 戻るボタン */
     .back-link {
-      position: absolute;
-      top: 0;
-      left: 0;
-      display: inline-block;
-      padding: 10px 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 16px;
       background: #ffffff;
-      color: #333;
+      color: #374151;
       text-decoration: none;
-      border: 1px solid #ddd;
-      border-radius: 10px;
+      border: 1px solid #d1d5db;
+      border-radius: 999px;
       font-size: 14px;
-      font-weight: 600;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-      transition: 0.2s;
+      font-weight: 700;
+      line-height: 1;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+      transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
     }
 
     .back-link:hover {
-      background: #f7f7f7;
+      background: #f9fafb;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.09);
     }
 
-    .page-heading {
-      text-align: center;
-      max-width: 700px;
-      margin: 0 auto;
-      padding-top: 4px;
-    }
-
+    /* タイトル周り */
     .page-title {
-      margin: 0 0 8px;
+      margin: 0 0 10px;
       font-size: 40px;
-      font-weight: 700;
+      font-weight: 800;
       color: #222;
+      line-height: 1.25;
+      letter-spacing: 0.02em;
+    }
+
+    .group-description {
+      max-width: 720px;
+      margin: 0 auto 8px;
+      color: #4b5563;
+      font-size: 15px;
+      line-height: 1.7;
     }
 
     .page-subtitle {
       margin: 0;
-      font-size: 18px;
-      color: #666;
-      line-height: 1.6;
+      color: #6b7280;
+      font-size: 16px;
+      line-height: 1.7;
     }
 
-    @media (max-width: 768px) {
-      .page-header {
-        min-height: auto;
+    /* カレンダー本体 */
+    #calendar {
+      max-width: 100%;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 18px;
+      border-radius: 18px;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    /* タブレット */
+    @media (max-width: 1024px) {
+      .calendar-header {
+        grid-template-columns: 180px 1fr 180px;
+        gap: 16px;
       }
 
-      .back-link {
-        position: static;
+      .page-title {
+        font-size: 34px;
+      }
+    }
+
+    /* スマホ */
+    @media (max-width: 768px) {
+      .page-wrap {
+        padding: 16px 12px 32px;
+      }
+
+      .calendar-header {
+        display: block;
+        margin-bottom: 20px;
+      }
+
+      .calendar-header-left {
+        padding-top: 0;
         margin-bottom: 16px;
       }
 
-      .page-heading {
+      .calendar-header-center {
         text-align: left;
       }
 
       .page-title {
-        font-size: 30px;
+        font-size: 28px;
+        margin-bottom: 8px;
+      }
+
+      .group-description {
+        margin: 0 0 8px;
+        font-size: 14px;
       }
 
       .page-subtitle {
-        font-size: 16px;
+        font-size: 13px;
+      }
+
+      .back-link {
+        font-size: 13px;
+        padding: 9px 13px;
+      }
+
+      #calendar {
+        padding: 10px;
+        border-radius: 14px;
       }
     }
 
@@ -774,13 +848,28 @@
 <body>
   <!-- ページ上部 -->
   <div class="page-wrap">
-    <div class="page-header">
-      <a href="{{ route('groups.index') }}" class="back-link">← グループ一覧へ</a>
-
-      <div class="page-heading">
-        <h1 class="page-title">{{ $group->name }} のカレンダー</h1>
-        <p class="page-subtitle">日付を押すと、その日の予定一覧を右から確認できます。</p>
+    <div class="calendar-header">
+      <div class="calendar-header-left">
+        <a href="{{ route('groups.index') }}" class="back-link">
+          ← グループ一覧へ
+        </a>
       </div>
+
+      <div class="calendar-header-center">
+        <h1 class="page-title">{{ $group->name }} のカレンダー</h1>
+
+        @if ($group->description)
+          <p class="group-description">
+            {{ $group->description }}
+          </p>
+        @endif
+
+        <p class="page-subtitle">
+          日付を押すと、その日の予定一覧を右から確認できます。
+        </p>
+      </div>
+
+      <div class="calendar-header-right"></div>
     </div>
 
     <div id="calendar"></div>
