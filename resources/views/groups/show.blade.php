@@ -19,20 +19,82 @@
       color: #222;
     }
 
+    /* ページ上部 */
     .page-wrap {
-      padding: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px 16px 40px;
+    }
+
+    .page-header {
+      position: relative;
+      margin-bottom: 24px;
+      min-height: 72px;
+    }
+
+    .back-link {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: inline-block;
+      padding: 10px 14px;
+      background: #ffffff;
+      color: #333;
+      text-decoration: none;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      transition: 0.2s;
+    }
+
+    .back-link:hover {
+      background: #f7f7f7;
+    }
+
+    .page-heading {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+      padding-top: 4px;
     }
 
     .page-title {
-      margin: 0 0 6px;
-      font-size: 32px;
-      font-weight: bold;
+      margin: 0 0 8px;
+      font-size: 40px;
+      font-weight: 700;
+      color: #222;
     }
 
     .page-subtitle {
-      margin: 0 0 18px;
+      margin: 0;
+      font-size: 18px;
       color: #666;
-      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .page-header {
+        min-height: auto;
+      }
+
+      .back-link {
+        position: static;
+        margin-bottom: 16px;
+      }
+
+      .page-heading {
+        text-align: left;
+      }
+
+      .page-title {
+        font-size: 30px;
+      }
+
+      .page-subtitle {
+        font-size: 16px;
+      }
     }
 
     #calendar {
@@ -700,43 +762,26 @@
       background: #dc2626;
     }
 
-    /* グループ一覧へ戻るボタン */
-    .back-button {
-      display: inline-block;
-      margin-bottom: 16px;
-      color: #374151;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .back-button:hover {
-      text-decoration: underline;
-    }
-
-    /* 説明 */
+    /* 説明
     .group-description {
       margin: 8px 0 12px;
       color: #555;
       font-size: 14px;
-    }
+    } */
   </style>
 </head>
 
 <body>
+  <!-- ページ上部 -->
   <div class="page-wrap">
-    <a href="{{ route('groups.index') }}" class="back-button">
-      ← グループ一覧に戻る
-    </a>
+    <div class="page-header">
+      <a href="{{ route('groups.index') }}" class="back-link">← グループ一覧へ</a>
 
-    <h1 class="page-title">{{ $group->name }} のカレンダー</h1>
-
-    @if ($group->description)
-      <p class="group-description">
-        {{ $group->description }}
-      </p>
-    @endif
-
-    <p class="page-subtitle">日付を押すと、その日の予定一覧を右から確認できます。</p>
+      <div class="page-heading">
+        <h1 class="page-title">{{ $group->name }} のカレンダー</h1>
+        <p class="page-subtitle">日付を押すと、その日の予定一覧を右から確認できます。</p>
+      </div>
+    </div>
 
     <div id="calendar"></div>
   </div>
